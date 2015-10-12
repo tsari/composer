@@ -8,9 +8,16 @@ RUN \
     && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENV COMPOSER_CACHE_DIR=/cache
+RUN useradd -ms /bin/bash composer
+RUN mkdir /home/composer/bin
 
-RUN curl -sS --insecure https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS --insecure https://getcomposer.org/installer | php -- --install-dir=/home/composer/bin --filename=composer
+
+RUN chown -R composer.composer /home/composer
+USER composer
+ENV HOME /home/composer
+
+ENV PATH=/home/composer/bin/:$PATH
 
 # Set up the application directory
 VOLUME ["/app"]
