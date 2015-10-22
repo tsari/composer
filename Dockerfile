@@ -5,6 +5,7 @@ RUN \
     apt-get update -qqy && \
     apt-get install --no-install-recommends -qqy \
         curl \
+        git \
     && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
