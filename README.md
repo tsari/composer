@@ -1,8 +1,15 @@
 # Composer container for composer interactions in projects
 
-# 1. Put this in your ~/.profile file
+# 1. create a shell script "composer" with the following code in your $HOME/bin dir and make it executable
 
-    alias composer="docker run --rm -i -t -v \$PWD:/srv tsari/composer"
+    #!/bin/bash
+    docker run -it --rm \
+        --name tsari-composer \
+        --env="USER" \
+        --env="UID=$(id -u)" \
+        --env="GID=$(id -g)" \
+        -v $PWD:/app \
+    tsari/composer "$@"
 
 # 2. Run your composer commands as always
 

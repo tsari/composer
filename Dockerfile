@@ -1,28 +1,18 @@
-FROM tsari/wheezy-apache-php
+FROM tsari/jessi-apache2-php
 MAINTAINER Tibor Sári <tiborsari@gmx.de>
 
-RUN \
-    apt-get update -qqy && \
-    apt-get install --no-install-recommends -qqy \
-        curl \
-        git \
-    && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ENV COMPOSER_VERSION 1.0.3
 
-RUN useradd -ms /bin/bash composer
-RUN mkdir /home/composer/bin
-
-RUN curl -sS --insecure https://getcomposer.org/installer | php -- --install-dir=/home/composer/bin --filename=composer
-
-RUN chown -R composer.composer /home/composer
-USER composer
-ENV HOME /home/composer
-
-ENV PATH=/home/composer/bin/:$PATH
+RUN curl -S --insecure -o /usr/local/bin/composer https://getcomposer.org/download/$COMPOSER_VERSION/composer.phar
+RUN chmod +x /usr/local/bin/composer
+#RUN curl -sS --insecure https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Set up the application directory
 VOLUME ["/app"]
 WORKDIR /app
 
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # Set up the command arguments
-ENTRYPOINT ["composer", "--ansi"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh", "composer", "--ansi"]
