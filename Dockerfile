@@ -1,4 +1,4 @@
-FROM tsari/jessi-apache2-php
+FROM tsari/jesse-apache2-php
 MAINTAINER Tibor Sári <tiborsari@gmx.de>
 
 ENV COMPOSER_VERSION 1.0.3
