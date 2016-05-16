@@ -1,7 +1,7 @@
 FROM tsari/jesse-apache2-php
 MAINTAINER Tibor Sári <tiborsari@gmx.de>
 
-ENV COMPOSER_VERSION 1.0.3
+ENV COMPOSER_VERSION 1.1.0
 
 RUN curl -S --insecure -o /usr/local/bin/composer https://getcomposer.org/download/$COMPOSER_VERSION/composer.phar
 RUN chmod +x /usr/local/bin/composer
