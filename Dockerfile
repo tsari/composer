@@ -1,7 +1,7 @@
-FROM tsari/jessie-apache2-php
+FROM tsari/jessie-php-fpm
 MAINTAINER Tibor Sári <tiborsari@gmx.de>
 
-ENV COMPOSER_VERSION 1.1.1
+ENV COMPOSER_VERSION 1.2.0
 
 RUN curl -S --insecure -o /usr/local/bin/composer https://getcomposer.org/download/$COMPOSER_VERSION/composer.phar
 RUN chmod +x /usr/local/bin/composer
